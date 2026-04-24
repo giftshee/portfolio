@@ -1,0 +1,21 @@
+{% extends "myapp/base.html" %}
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ item.title }}</h2>
+<img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid">
+<p>{{ item.description }}</p>
+
+{% if user.is_superuser %}
+<div class="admin-controls">
+  <form method="POST" action="{% url 'portfolio_edit' item.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-warning">Edit</button>
+  </form>
+  <form method="POST" action="{% url 'portfolio_delete' item.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+</div>
+{% endif %}
+{% endblock %}

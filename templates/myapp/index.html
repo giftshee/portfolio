@@ -1,0 +1,108 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section id="hero" class="hero section dark-background"
+    {% if hero.background_image %}
+      style="background-image: url('{{ hero.background_image.url }}');"
+    {% else %}
+      style="background-image: url('{% static "images/hero-bg.jpg" %}');"
+    {% endif %}>
+
+  <!-- Overlay -->
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content" data-aos="fade-up" data-aos-delay="100">
+    {% if hero %}
+      <h2>{{ hero.title }}</h2>
+      <p>
+        I'm 
+        {% if hero.roles.all %}
+          <span class="typed" data-typed-items="{% for role in hero.roles.all %}{{ role.role }}{% if not forloop.last %},{% endif %}{% endfor %}"></span>
+        {% else %}
+          <!-- Fallback roles if database is empty -->
+          <span class="typed" data-typed-items="Freelancer,Graphics Designer,Developer"></span>
+        {% endif %}
+      </p>
+    {% else %}
+      <h2>No Hero Section Yet</h2>
+      <p>Create one below!</p>
+      <!-- Default typed text even if no hero -->
+      <span class="typed" data-typed-items="Freelancer,Graphics Designer,Web Developer"></span>
+    {% endif %}
+
+    <!-- Scroll Button -->
+    <a href="#about" class="btn-scroll" title="Scroll Down">
+      <i class="bi bi-chevron-down"></i>
+    </a>
+  </div>
+</section>
+
+{% if user.is_superuser %}
+  <!-- Admin Controls -->
+  <div class="admin-controls mt-4">
+    {% if hero %}
+      <!-- Edit Hero -->
+      <form method="POST" action="{% url 'hero_edit' hero.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" value="{{ hero.title }}" placeholder="Title" required>
+        <input type="text" name="subtitle" value="{{ hero.subtitle }}" placeholder="Subtitle" required>
+        <label>Background Image:</label>
+        <input type="file" name="background_image">
+        <button type="submit" class="btn btn-warning">Edit</button>
+      </form>
+
+      <!-- Delete Hero -->
+      <form method="POST" action="{% url 'hero_delete' hero.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    {% endif %}
+
+    <!-- Add New Hero -->
+    <form method="POST" action="{% url 'hero_add' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" name="title" placeholder="New Title" required>
+      <input type="text" name="subtitle" placeholder="Subtitle" required>
+      <label>Background Image:</label>
+      <input type="file" name="background_image">
+      <button type="submit" class="btn btn-success">Add</button>
+    </form>
+  </div>
+  <!-- end admin-controls -->
+
+  <!-- Logout form outside any other form -->
+  <form method="post" action="{% url 'logout' %}" style="margin-top:15px;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-secondary">Logout</button>
+  </form>
+{% endif %}
+
+<!-- Typed.js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const typedElements = document.querySelectorAll('.typed');
+  typedElements.forEach(typedElement => {
+    const typedItemsRaw = typedElement.getAttribute('data-typed-items');
+    if (typedItemsRaw) {
+      const typedItems = typedItemsRaw.split(',').map(item => item.trim()).filter(Boolean);
+      if (typedItems.length) {
+        new Typed(typedElement, {
+          strings: typedItems,
+          typeSpeed: 100,
+          backSpeed: 50,
+          backDelay: 2000,
+          loop: true
+        });
+      }
+    }
+  });
+});
+</script>
+
+{% endblock %}

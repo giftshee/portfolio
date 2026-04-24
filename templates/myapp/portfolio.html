@@ -1,0 +1,142 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block content %}
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section light-background">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Portfolio</h2>
+    {% if portfolio_intro %}
+      <p>{{ portfolio_intro.subtitle }}</p>
+    {% else %}
+      <p>Welcome to my Portfolio section.</p>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+      <!-- Filters -->
+      <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+        <li data-filter="*" class="filter-active">All</li>
+        <li data-filter=".filter-app">App</li>
+        <li data-filter=".filter-product">Card</li>
+        <li data-filter=".filter-branding">Web</li>
+      </ul>
+
+      <!-- Portfolio Items -->
+      <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+        {% for item in portfolio_items %}
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ item.category }}">
+          <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.title }}">
+          <div class="portfolio-info">
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.image.url }}" title="{{ item.title }}" data-gallery="portfolio-gallery-{{ item.category }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+            <a href="{% url 'portfolio_detail' item.id %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+
+            {% if user.is_superuser %}
+            <!-- Admin Controls -->
+            <div class="admin-controls mt-2">
+              <form method="POST" action="{% url 'portfolio_edit' item.id %}" style="display:inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+              </form>
+              <form method="POST" action="{% url 'portfolio_delete' item.id %}" style="display:inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p>No portfolio items yet. Admins can add some below.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if user.is_superuser %}
+    <!-- Add New Portfolio Item -->
+    <div class="admin-add mt-4" style="border-top:1px solid #ccc; padding-top:20px;">
+      <h5>Add New Portfolio Item</h5>
+      <form method="POST" action="{% url 'portfolio_add' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title" required style="margin-right:5px;">
+        <input type="text" name="category" placeholder="Category (app/product/branding)" required style="margin-right:5px;">
+        <input type="file" name="image" required style="margin-right:5px;">
+        <textarea name="description" placeholder="Description" rows="2" style="width:100%; margin-top:5px;"></textarea>
+        <button type="submit" class="btn btn-success mt-2">Add</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Testimonials</h2>
+    {% if testimonials_intro %}
+      <p>{{ testimonials_intro.subtitle }}</p>
+    {% else %}
+      <p>What my clients say about me.</p>
+    {% endif %}
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="swiper init-swiper" data-speed="600" data-delay="5000">
+      <div class="swiper-wrapper">
+        {% for t in testimonials %}
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>{{ t.text }}</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
+            <img src="{{ t.image.url }}" class="testimonial-img" alt="{{ t.name }}">
+            <h3>{{ t.name }}</h3>
+            <h4>{{ t.title }}</h4>
+
+            {% if user.is_superuser %}
+            <div class="admin-controls mt-2">
+              <form method="POST" action="{% url 'testimonial_edit' t.id %}" style="display:inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+              </form>
+              <form method="POST" action="{% url 'testimonial_delete' t.id %}" style="display:inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p>No testimonials yet. Admin can add some below.</p>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    {% if user.is_superuser %}
+    <div class="admin-add mt-4" style="border-top:1px solid #ccc; padding-top:20px;">
+      <h5>Add Testimonial</h5>
+      <form method="POST" action="{% url 'testimonial_add' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name" required style="margin-right:5px;">
+        <input type="text" name="title" placeholder="Title" required style="margin-right:5px;">
+        <input type="file" name="image" required style="margin-right:5px;">
+        <textarea name="text" placeholder="Testimonial text" rows="2" style="width:100%; margin-top:5px;"></textarea>
+        <button type="submit" class="btn btn-success mt-2">Add</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-@11m640)9=y&jwy6@sr1y+^sd^$mmf2mmod@n=*5ts!(u5x!-1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
+
+
 
 
 # Application definition
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,3 +127,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Redirects after login/logout
 LOGIN_REDIRECT_URL = '/'    # go to homepage after login
 LOGOUT_REDIRECT_URL = '/'   # go to homepage after logout
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

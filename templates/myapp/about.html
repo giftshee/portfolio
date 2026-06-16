@@ -3,193 +3,656 @@
 
 {% block title %}About{% endblock %}
 
+
 {% block content %}
 
-<!-- About Section -->
+
+<!-- ================= ABOUT SECTION ================= -->
+
+
 <section id="about" class="about section">
 
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>About</h2>
-    <p>{% if about %}{{ about.subtitle }}{% else %}Welcome to my About section.{% endif %}</p>
 
-    {% if user.is_superuser %}
-      <div class="admin-controls mt-2">
-        {% if about %}
-          <a href="{% url 'about_edit' about.id %}" class="btn btn-warning btn-sm">Edit About</a>
-          <form action="{% url 'about_delete' about.id %}" method="POST" style="display:inline-block;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Delete About</button>
-          </form>
-        {% else %}
-          <a href="{% url 'about_add' %}" class="btn btn-success btn-sm">Add About</a>
-        {% endif %}
-      </div>
-    {% endif %}
-  </div><!-- End Section Title -->
+<div class="container section-title" data-aos="fade-up">
 
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row gy-4 justify-content-center">
-      <div class="col-lg-4">
-        {% if about and about.image %}
-          <img src="{{ about.image.url }}" class="img-fluid" alt="Profile">
-        {% else %}
-          <img src="{% static 'assets/img/profile-img.jpg' %}" class="img-fluid" alt="Profile">
-        {% endif %}
-      </div>
-      <div class="col-lg-8 content">
-        <h2>{% if about %}{{ about.heading }}{% else %}UI/UX Designer & Web Developer{% endif %}</h2>
-        <p class="fst-italic py-3">
-          {% if about %}{{ about.description }}{% else %}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          {% endif %}
-        </p>
-        <div class="row">
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>{% if about %}{{ about.birthday }}{% else %}1 May 1995{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>{% if about %}{{ about.website }}{% else %}www.example.com{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>{% if about %}{{ about.phone }}{% else %}+123 456 7890{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>{% if about %}{{ about.city }}{% else %}New York, USA{% endif %}</span></li>
-            </ul>
-          </div>
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>{% if about %}{{ about.age }}{% else %}30{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>{% if about %}{{ about.degree }}{% else %}Master{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>{% if about %}{{ about.email }}{% else %}email@example.com{% endif %}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>{% if about %}{{ about.freelance }}{% else %}Available{% endif %}</span></li>
-            </ul>
-          </div>
-        </div>
-        <p class="py-3">
-          {% if about %}{{ about.summary }}{% else %}
-          Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore.
-          {% endif %}
-        </p>
-      </div>
-    </div>
-  </div>
 
-</section><!-- /About Section -->
-    <!-- Stats Section -->
-    <section id="stats" class="stats section">
+<h2>About Me</h2>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-4">
+<p>
+I create modern websites and web applications that help businesses build their online presence.
+</p>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Happy Clients</strong> <span>consequuntur quae</span></p>
-            </div>
-          </div><!-- End Stats Item -->
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> <span>adipisci atque cum quia aut</span></p>
-            </div>
-          </div><!-- End Stats Item -->
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> <span>aut commodi quaerat</span></p>
-            </div>
-          </div><!-- End Stats Item -->
+{% if user.is_superuser %}
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hard Workers</strong> <span>rerum asperiores dolor</span></p>
-            </div>
-          </div><!-- End Stats Item -->
 
-        </div>
+<div class="admin-controls mt-2">
 
-      </div>
 
-    </section><!-- /Stats Section -->
+{% if about %}
 
-<!-- Skills Section -->
+
+<a href="{% url 'about_edit' about.id %}" 
+class="btn btn-warning btn-sm">
+
+Edit About
+
+</a>
+
+
+
+<form action="{% url 'about_delete' about.id %}" 
+method="POST"
+style="display:inline-block;">
+
+
+{% csrf_token %}
+
+
+<button class="btn btn-danger btn-sm">
+
+Delete About
+
+</button>
+
+
+</form>
+
+
+
+{% else %}
+
+
+<a href="{% url 'about_add' %}" 
+class="btn btn-success btn-sm">
+
+Add About
+
+</a>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+<div class="container" data-aos="fade-up">
+
+
+<div class="row gy-4 align-items-center">
+
+
+
+
+
+<div class="col-lg-4">
+
+
+{% if about and about.image %}
+
+
+<img src="{{ about.image.url }}"
+class="img-fluid rounded"
+alt="Profile">
+
+
+
+{% else %}
+
+
+
+<img src="{% static 'assets/img/profile-img.jpg' %}"
+class="img-fluid rounded"
+alt="Profile">
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+<div class="col-lg-8 content">
+
+
+<h2>
+
+
+{% if about %}
+
+{{ about.heading }}
+
+{% else %}
+
+Full Stack Web Developer
+
+{% endif %}
+
+
+
+</h2>
+
+
+
+
+
+<p class="fst-italic">
+
+
+{% if about %}
+
+{{ about.description }}
+
+
+{% else %}
+
+
+I specialize in building responsive websites, Django applications and online solutions for businesses.
+
+
+{% endif %}
+
+
+
+</p>
+
+
+
+
+
+
+<ul>
+
+
+<li>
+<i class="bi bi-check-circle"></i>
+Responsive Website Development
+</li>
+
+
+
+<li>
+<i class="bi bi-check-circle"></i>
+Django & Python Applications
+</li>
+
+
+
+<li>
+<i class="bi bi-check-circle"></i>
+E-commerce Website Development
+</li>
+
+
+
+<li>
+<i class="bi bi-check-circle"></i>
+Modern UI Designs
+</li>
+
+
+
+</ul>
+
+
+
+
+
+<p>
+
+
+I focus on creating websites that are fast, easy to use and designed to help businesses attract more customers online.
+
+
+</p>
+
+
+
+
+
+<a href="{% url 'contact' %}" class="btn btn-primary">
+
+Work With Me
+
+</a>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ================= STATS SECTION ================= -->
+
+
+<section id="stats" class="stats section">
+
+
+<div class="container" data-aos="fade-up">
+
+
+<div class="row gy-4">
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+
+<div class="stats-item">
+
+
+<i class="bi bi-code-slash"></i>
+
+
+<span data-purecounter-start="0"
+data-purecounter-end="5"
+class="purecounter"></span>
+
+
+<p>
+
+<strong>Projects Built</strong>
+
+<span>Websites and applications</span>
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+
+<div class="stats-item">
+
+
+<i class="bi bi-laptop"></i>
+
+
+<span data-purecounter-start="0"
+data-purecounter-end="7"
+class="purecounter"></span>
+
+
+
+<p>
+
+<strong>Technologies</strong>
+
+<span>Modern web tools</span>
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+
+<div class="stats-item">
+
+
+<i class="bi bi-clock"></i>
+
+
+<span data-purecounter-start="0"
+data-purecounter-end="500"
+class="purecounter"></span>
+
+
+
+<p>
+
+<strong>Coding Hours</strong>
+
+<span>Development practice</span>
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+
+<div class="stats-item">
+
+
+<i class="bi bi-people"></i>
+
+
+<span data-purecounter-start="0"
+data-purecounter-end="100"
+class="purecounter"></span>
+
+
+
+<p>
+
+<strong>Commitment</strong>
+
+<span>Quality focused</span>
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= SKILLS SECTION ================= -->
+
+
+
 <section id="skills" class="skills section">
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Skills</h2>
-    <p>{% if skills %}My skill set includes various technologies and tools.{% else %}No skills added yet.{% endif %}</p>
 
-    {% if user.is_superuser %}
-      <div class="admin-controls mt-2">
-        <a href="{% url 'skill_add' %}" class="btn btn-success btn-sm">Add Skill</a>
-        {% for skill in skills %}
-          <a href="{% url 'skill_edit' skill.id %}" class="btn btn-warning btn-sm">Edit {{ skill.name }}</a>
-          <form action="{% url 'skill_delete' skill.id %}" method="POST" style="display:inline-block;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Delete {{ skill.name }}</button>
-          </form>
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
 
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row skills-content skills-animation">
-      {% for skill in skills %}
-        <div class="col-lg-6">
-          <div class="progress">
-            <span class="skill">{{ skill.name }} <i class="val">{{ skill.percent }}%</i></span>
-            <div class="progress-bar-wrap">
-              <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percent }}" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-          </div>
-        </div>
-      {% empty %}
-        <p>No skills added yet.</p>
-      {% endfor %}
-    </div>
-  </div>
+<div class="container section-title">
 
-</section><!-- /Skills Section -->
 
-<!-- Resume Section -->
+<h2>Skills</h2>
+
+
+<p>
+Technologies and tools I use to build websites.
+</p>
+
+
+
+
+{% if user.is_superuser %}
+
+
+<a href="{% url 'skill_add' %}"
+class="btn btn-success btn-sm">
+
+Add Skill
+
+</a>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+<div class="container">
+
+
+<div class="row skills-content">
+
+
+
+{% for skill in skills %}
+
+
+
+<div class="col-lg-6">
+
+
+<div class="progress">
+
+
+<span class="skill">
+
+
+{{ skill.name }}
+
+<i class="val">
+{{ skill.percent }}%
+</i>
+
+
+</span>
+
+
+
+<div class="progress-bar-wrap">
+
+
+<div class="progress-bar"
+role="progressbar"
+aria-valuenow="{{ skill.percent }}"
+aria-valuemin="0"
+aria-valuemax="100">
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% empty %}
+
+
+<p>
+No skills added yet.
+</p>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= RESUME SECTION ================= -->
+
+
+
 <section id="resume" class="resume section light-background">
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Resume</h2>
-    <p>{% if resume_entries %}My education and professional experience.{% else %}No resume entries yet.{% endif %}</p>
 
-    {% if user.is_superuser %}
-      <div class="admin-controls mt-2">
-        <a href="{% url 'resume_add' %}" class="btn btn-success btn-sm">Add Resume Entry</a>
-        {% for entry in resume_entries %}
-          <a href="{% url 'resume_edit' entry.id %}" class="btn btn-warning btn-sm">Edit {{ entry.degree }}</a>
-          <form action="{% url 'resume_delete' entry.id %}" method="POST" style="display:inline-block;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Delete {{ entry.degree }}</button>
-          </form>
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
+<div class="container section-title">
 
-  <div class="container">
-    {% for entry in resume_entries %}
-      <div class="resume-item">
-        <h4>{{ entry.degree }} - {{ entry.institution }}</h4>
-        <p>{{ entry.start_date }} to {{ entry.end_date }}</p>
-        <p>{{ entry.description }}</p>
-      </div>
-    {% empty %}
-      <p>No resume entries yet.</p>
-    {% endfor %}
-  </div>
 
-</section><!-- /Resume Section -->
+<h2>Experience & Learning</h2>
+
+
+<p>
+
+My development journey and experience.
+
+</p>
+
+
+
+
+{% if user.is_superuser %}
+
+
+<a href="{% url 'resume_add' %}"
+class="btn btn-success btn-sm">
+
+Add Entry
+
+</a>
+
+
+{% endif %}
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="container">
+
+
+
+{% for entry in resume_entries %}
+
+
+
+<div class="resume-item">
+
+
+<h4>
+
+{{ entry.degree }} - {{ entry.institution }}
+
+</h4>
+
+
+<p>
+
+{{ entry.start_date }} - {{ entry.end_date }}
+
+</p>
+
+
+<p>
+
+{{ entry.description }}
+
+</p>
+
+
+
+</div>
+
+
+
+
+{% empty %}
+
+
+
+<p>
+No experience added yet.
+</p>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
 
 {% endblock %}

@@ -4,82 +4,278 @@
 {% block title %}Contact{% endblock %}
 
 {% block content %}
+
+
+
+<!-- ================= CONTACT SECTION ================= -->
+
 <section id="contact" class="contact section">
+
+
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Contact</h2>
-    <p>Get in touch with us</p>
+
+    <h2>Let’s Work Together</h2>
+
+    <p>
+      Have a project in mind? I’m available for freelance web development, website redesigns, and Django applications.
+    </p>
+
   </div>
+
+
+
+
 
   <div class="container" data-aos="fade" data-aos-delay="100">
 
+
     <div class="row gy-4">
 
+
+
+      <!-- CONTACT INFO -->
       <div class="col-lg-4">
+
+
+
+
         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+
           <i class="bi bi-geo-alt flex-shrink-0"></i>
+
           <div>
-            <h3>Address</h3>
-            <p>{{ contact.address|default:"A108 Adam Street, New York, NY 535022" }}</p>
+            <h3>Location</h3>
+            <p>{{ contact.address|default:"Nairobi, Kenya" }}</p>
           </div>
+
         </div>
+
+
+
+
 
         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+
           <i class="bi bi-telephone flex-shrink-0"></i>
+
           <div>
-            <h3>Call Us</h3>
-            <p>{{ contact.phone|default:"+1 5589 55488 55" }}</p>
+            <h3>Phone / WhatsApp</h3>
+            <p>{{ contact.phone|default:"+254 7XX XXX XXX" }}</p>
           </div>
+
         </div>
+
+
+
+
 
         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+
           <i class="bi bi-envelope flex-shrink-0"></i>
+
           <div>
-            <h3>Email Us</h3>
-            <p>{{ contact.email|default:"info@example.com" }}</p>
+            <h3>Email</h3>
+            <p>{{ contact.email|default:"yourname@email.com" }}</p>
           </div>
+
         </div>
 
+
+
+
+
+        <!-- QUICK CTA -->
+        <div class="mt-4">
+
+          <a href="https://wa.me/254700670908"
+             target="_blank"
+             class="btn btn-success w-100">
+
+            Chat on WhatsApp
+
+          </a>
+
+        </div>
+
+
+
+
+
+        <!-- ADMIN EDIT -->
         {% if user.is_superuser %}
-        <!-- Admin Edit Contact -->
-        <form method="POST" action="{% url 'contact_edit' %}" style="margin-top:20px;">
+
+        <form method="POST"
+              action="{% url 'contact_edit' %}"
+              class="mt-4">
+
+
           {% csrf_token %}
-          <input type="text" name="address" value="{{ contact.address }}" placeholder="Address" style="margin-bottom:5px;" required><br>
-          <input type="text" name="phone" value="{{ contact.phone }}" placeholder="Phone" style="margin-bottom:5px;" required><br>
-          <input type="email" name="email" value="{{ contact.email }}" placeholder="Email" style="margin-bottom:5px;" required><br>
-          <button type="submit" class="btn btn-warning btn-sm">Update Contact Info</button>
+
+
+
+          <input type="text"
+                 name="address"
+                 value="{{ contact.address }}"
+                 placeholder="Address"
+                 class="form-control mb-2">
+
+
+
+          <input type="text"
+                 name="phone"
+                 value="{{ contact.phone }}"
+                 placeholder="Phone"
+                 class="form-control mb-2">
+
+
+
+          <input type="email"
+                 name="email"
+                 value="{{ contact.email }}"
+                 placeholder="Email"
+                 class="form-control mb-2">
+
+
+
+          <button type="submit"
+                  class="btn btn-warning btn-sm w-100">
+
+            Update Contact Info
+
+          </button>
+
         </form>
+
         {% endif %}
+
+
+
       </div>
 
+
+
+
+
+      <!-- CONTACT FORM -->
       <div class="col-lg-8">
-        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-          <div class="row gy-4">
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+
+
+
+        <div class="contact-box p-4 shadow-sm bg-white rounded">
+
+
+
+          <h4 class="mb-3">
+            Send Me a Message
+          </h4>
+
+          <p class="text-muted mb-4">
+            I usually reply within a few hours.
+          </p>
+
+
+
+
+
+          <form action="forms/contact.php"
+                method="post"
+                class="php-email-form">
+
+
+
+            <div class="row gy-3">
+
+
+
+              <div class="col-md-6">
+
+                <input type="text"
+                       name="name"
+                       class="form-control"
+                       placeholder="Your Name"
+                       required>
+
+              </div>
+
+
+
+
+
+              <div class="col-md-6">
+
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       placeholder="Your Email"
+                       required>
+
+              </div>
+
+
+
+
+
+              <div class="col-12">
+
+                <input type="text"
+                       name="subject"
+                       class="form-control"
+                       placeholder="Project Type (e.g Website, E-commerce)"
+                       required>
+
+              </div>
+
+
+
+
+
+              <div class="col-12">
+
+                <textarea name="message"
+                          rows="6"
+                          class="form-control"
+                          placeholder="Tell me about your project..."
+                          required></textarea>
+
+              </div>
+
+
+
+
+
+              <div class="col-12 text-center">
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
+
+                  Send Message
+
+                </button>
+
+              </div>
+
+
+
             </div>
-            <div class="col-md-6">
-              <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-            </div>
-            <div class="col-md-12">
-              <input type="text" name="subject" class="form-control" placeholder="Subject" required>
-            </div>
-            <div class="col-md-12">
-              <textarea name="message" rows="6" class="form-control" placeholder="Message" required></textarea>
-            </div>
-            <div class="col-md-12 text-center">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
-              <button type="submit">Send Message</button>
-            </div>
-          </div>
-        </form>
+
+          </form>
+
+
+
+        </div>
+
       </div>
+
+
 
     </div>
+
   </div>
 
 </section>
+
+
+
 {% endblock %}

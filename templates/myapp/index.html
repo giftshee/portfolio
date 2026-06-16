@@ -5,104 +5,1090 @@
 
 {% block content %}
 
-<!-- Hero Section -->
+
+
+<!-- ================= HERO SECTION ================= -->
+
 <section id="hero" class="hero section dark-background"
-    {% if hero.background_image %}
-      style="background-image: url('{{ hero.background_image.url }}');"
-    {% else %}
-      style="background-image: url('{% static "images/hero-bg.jpg" %}');"
-    {% endif %}>
 
-  <!-- Overlay -->
-  <div class="hero-overlay"></div>
+{% if hero.background_image %}
+style="background-image: url('{{ hero.background_image.url }}');"
+{% else %}
+style="background-image: url('{% static "images/hero-bg.jpg" %}');"
+{% endif %}>
 
-  <div class="hero-content" data-aos="fade-up" data-aos-delay="100">
-    {% if hero %}
-      <h2>{{ hero.title }}</h2>
-      <p>
-        I'm 
-        {% if hero.roles.all %}
-          <span class="typed" data-typed-items="{% for role in hero.roles.all %}{{ role.role }}{% if not forloop.last %},{% endif %}{% endfor %}"></span>
-        {% else %}
-          <!-- Fallback roles if database is empty -->
-          <span class="typed" data-typed-items="Freelancer,Graphics Designer,Developer"></span>
-        {% endif %}
-      </p>
-    {% else %}
-      <h2>No Hero Section Yet</h2>
-      <p>Create one below!</p>
-      <!-- Default typed text even if no hero -->
-      <span class="typed" data-typed-items="Freelancer,Graphics Designer,Web Developer"></span>
-    {% endif %}
 
-    <!-- Scroll Button -->
-    <a href="#about" class="btn-scroll" title="Scroll Down">
-      <i class="bi bi-chevron-down"></i>
-    </a>
-  </div>
-</section>
+<div class="hero-overlay"></div>
 
-{% if user.is_superuser %}
-  <!-- Admin Controls -->
-  <div class="admin-controls mt-4">
-    {% if hero %}
-      <!-- Edit Hero -->
-      <form method="POST" action="{% url 'hero_edit' hero.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="title" value="{{ hero.title }}" placeholder="Title" required>
-        <input type="text" name="subtitle" value="{{ hero.subtitle }}" placeholder="Subtitle" required>
-        <label>Background Image:</label>
-        <input type="file" name="background_image">
-        <button type="submit" class="btn btn-warning">Edit</button>
-      </form>
 
-      <!-- Delete Hero -->
-      <form method="POST" action="{% url 'hero_delete' hero.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
-    {% endif %}
 
-    <!-- Add New Hero -->
-    <form method="POST" action="{% url 'hero_add' %}" enctype="multipart/form-data">
-      {% csrf_token %}
-      <input type="text" name="title" placeholder="New Title" required>
-      <input type="text" name="subtitle" placeholder="Subtitle" required>
-      <label>Background Image:</label>
-      <input type="file" name="background_image">
-      <button type="submit" class="btn btn-success">Add</button>
-    </form>
-  </div>
-  <!-- end admin-controls -->
+<div class="hero-content text-center" data-aos="fade-up" data-aos-delay="100">
 
-  <!-- Logout form outside any other form -->
-  <form method="post" action="{% url 'logout' %}" style="margin-top:15px;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-secondary">Logout</button>
-  </form>
+
+
+{% if hero %}
+
+<h1>{{ hero.title }}</h1>
+
+<h3 class="mt-3">
+I build
+<span class="typed"
+data-typed-items="
+High-Converting Websites,
+Django Web Applications,
+Business Websites,
+E-commerce Platforms">
+</span>
+</h3>
+
+
+<p class="mt-3">
+I help businesses and brands get professional websites that attract customers,
+build trust, and generate more sales online.
+</p>
+
+
+{% else %}
+
+
+<h1>
+I Build Websites That Grow Businesses
+</h1>
+
+
+<h3 class="mt-3">
+
+I create
+<span class="typed"
+data-typed-items="
+Modern Websites,
+Django Applications,
+E-commerce Stores,
+Business Solutions">
+</span>
+
+</h3>
+
+
+<p class="mt-3">
+Professional websites designed to help businesses attract customers,
+increase credibility, and grow online.
+</p>
+
+
 {% endif %}
 
-<!-- Typed.js -->
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+
+<!-- CTA BUTTONS -->
+
+<div class="mt-4 hero-buttons">
+
+
+<div class="mt-4 hero-buttons">
+
+
+<a href="https://wa.me/254700670908"
+target="_blank"
+class="btn btn-success me-2">
+
+<i class="bi bi-whatsapp"></i>
+Start Your Project
+
+</a>
+
+
+
+<a href="{% url 'portfolio' %}"
+class="btn btn-outline-light me-2">
+
+<i class="bi bi-eye"></i>
+See My Work
+
+</a>
+
+
+
+<a href="{% static 'cv.pdf' %}"
+download
+class="btn btn-primary">
+
+<i class="bi bi-file-earmark-person"></i>
+My CV
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- ================= QUICK STATS ================= -->
+
+<section class="stats section">
+
+<div class="container">
+
+<div class="row gy-4">
+
+
+
+<div class="col-lg-3 col-md-6">
+
+  <div class="stats-item text-center">
+
+    <i class="bi bi-code-slash stat-icon"></i>
+
+    <h2 class="counter" data-target="10">0</h2>
+
+    <p>Projects Completed</p>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+  <div class="stats-item text-center">
+
+    <i class="bi bi-people stat-icon"></i>
+
+    <h2 class="counter" data-target="5">0</h2>
+
+    <p>Happy Clients</p>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+  <div class="stats-item text-center">
+
+    <i class="bi bi-laptop stat-icon"></i>
+
+    <h2 class="counter" data-target="8">0</h2>
+
+    <p>Technologies</p>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="col-lg-3 col-md-6">
+
+  <div class="stats-item text-center">
+
+    <i class="bi bi-clock stat-icon"></i>
+
+    <h2 class="counter" data-target="3">0</h2>
+
+    <p>Year Experience</p>
+
+  </div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<!-- ================= ABOUT PREVIEW ================= -->
+
+<section class="about-preview section">
+
+<div class="container">
+
+
+<div class="row align-items-center">
+
+
+
+<div class="col-lg-6">
+
+
+<img src="{% static 'assets/img/my-photo.jpg' %}"
+class="img-fluid rounded shadow"
+alt="Web Developer">
+
+
+</div>
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<h2>
+Building Digital Solutions That Help Businesses Grow
+</h2>
+
+
+
+<p>
+
+I am a web developer specializing in creating modern websites
+and web applications that help businesses build credibility,
+reach more customers, and improve their online presence.
+
+</p>
+
+
+
+<p>
+
+I combine clean design, responsive development, and powerful
+technologies like Django to create websites that are fast,
+secure, and easy to use.
+
+</p>
+
+
+
+<ul>
+
+
+<li>
+✔ Professional business websites
+</li>
+
+
+<li>
+✔ Django web applications
+</li>
+
+
+<li>
+✔ Responsive mobile-first designs
+</li>
+
+
+<li>
+✔ Solutions focused on real business results
+</li>
+
+
+</ul>
+
+
+
+
+<a href="{% url 'contact' %}"
+class="btn btn-dark mt-3">
+
+Let's Work Together
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+<section class="section">
+
+<div class="container">
+
+<div class="section-title text-center">
+
+<h2>Why Choose Me?</h2>
+
+<p>Professional websites designed to help businesses grow</p>
+
+</div>
+
+
+<div class="row">
+
+
+<div class="col-md-4">
+<h4>🚀 Business Growth</h4>
+<p>
+I build websites focused on attracting customers and generating results.
+</p>
+</div>
+
+
+<div class="col-md-4">
+<h4>📱 Mobile Friendly</h4>
+<p>
+Your website works perfectly on phones, tablets and computers.
+</p>
+</div>
+
+
+<div class="col-md-4">
+<h4>⚡ Fast Performance</h4>
+<p>
+Clean code and optimized websites for better user experience.
+</p>
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- ================= SERVICES PREVIEW ================= -->
+<!-- ================= SERVICES ================= -->
+
+<section class="services-preview section light-background">
+
+<div class="container section-title text-center">
+
+<h2>How I Can Help Your Business</h2>
+
+<p>
+Professional websites and web solutions designed to attract customers and grow your brand.
+</p>
+
+</div>
+
+
+<div class="container">
+
+<div class="row gy-4">
+
+
+
+<!-- SERVICE 1 -->
+
+<div class="col-lg-4 col-md-6">
+
+<div class="service-card text-center">
+
+
+<i class="bi bi-building"></i>
+
+
+<h4>Business Websites</h4>
+
+
+<p>
+Modern professional websites that showcase your business,
+build trust, and help customers contact you easily.
+</p>
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-outline-primary">
+
+Get Started
+
+</a>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- SERVICE 2 -->
+
+
+<div class="col-lg-4 col-md-6">
+
+<div class="service-card text-center">
+
+
+<i class="bi bi-cart-check"></i>
+
+
+<h4>E-commerce Stores</h4>
+
+
+<p>
+Online stores that allow you to display products,
+receive orders, and grow your online sales.
+</p>
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-outline-primary">
+
+Build My Store
+
+</a>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- SERVICE 3 -->
+
+
+<div class="col-lg-4 col-md-6">
+
+<div class="service-card text-center">
+
+
+<i class="bi bi-code-square"></i>
+
+
+<h4>Custom Web Applications</h4>
+
+
+<p>
+Django-powered systems built to automate tasks,
+manage data, and improve business operations.
+</p>
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-outline-primary">
+
+Discuss Project
+
+</a>
+
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+</section>
+<!-- ================= FEATURED PROJECTS ================= -->
+
+<section id="portfolio" class="section">
+
+<div class="container">
+
+
+<div class="section-title text-center">
+
+<h2>Recent Work</h2>
+
+<p>
+Projects built to solve real business problems and improve online presence.
+</p>
+
+</div>
+
+
+
+<div class="row gy-4">
+
+
+
+<!-- PROJECT 1 -->
+
+<div class="col-lg-4 col-md-6">
+
+
+<div class="card h-100 shadow-sm">
+
+
+<img src="{% static 'assets/img/project1.jpg' %}"
+class="card-img-top"
+alt="Business Website">
+
+
+
+<div class="card-body">
+
+
+<h4>Business Website</h4>
+
+
+<p>
+A professional website created to help a business showcase services
+and attract more customers online.
+</p>
+
+
+
+<h6>Business Goal:</h6>
+
+<p>
+Create an online presence and make it easier for customers to contact the business.
+</p>
+
+
+
+<h6>Built With:</h6>
+
+<p>
+HTML, CSS, JavaScript, Django
+</p>
+
+
+
+<a href="https://mau-exporters-k7l6.onrender.com"
+target="_blank"
+class="btn btn-primary">
+
+View Live Website
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- PROJECT 2 -->
+
+
+<div class="col-lg-4 col-md-6">
+
+
+<div class="card h-100 shadow-sm">
+
+
+<img src="{% static 'assets/img/project2.jpg' %}"
+class="card-img-top"
+alt="Django Application">
+
+
+
+<div class="card-body">
+
+
+<h4>Django Web Application</h4>
+
+
+<p>
+A custom system designed to simplify business processes
+and reduce manual work.
+</p>
+
+
+
+<h6>Business Goal:</h6>
+
+<p>
+Improve efficiency through automation and organized data management.
+</p>
+
+
+
+<h6>Built With:</h6>
+
+<p>
+Python, Django, Bootstrap, SQLite
+</p>
+
+
+
+<a href="https://portfolio-nxph.onrender.com"
+target="_blank"
+class="btn btn-primary">
+
+View Application
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- PROJECT 3 -->
+
+
+<div class="col-lg-4 col-md-6">
+
+
+<div class="card h-100 shadow-sm">
+
+
+<img src="{% static 'assets/img/project3.jpg' %}"
+class="card-img-top"
+alt="Ecommerce Website">
+
+
+
+<div class="card-body">
+
+
+<h4>E-commerce Store</h4>
+
+
+<p>
+An online shopping platform designed to help businesses sell products online.
+</p>
+
+
+
+<h6>Business Goal:</h6>
+
+<p>
+Allow customers to browse products and place orders easily.
+</p>
+
+
+
+<h6>Built With:</h6>
+
+<p>
+Django, HTML, CSS, JavaScript
+</p>
+
+
+
+<a href="https://django-ecommerce-d1ss.onrender.com"
+target="_blank"
+class="btn btn-primary">
+
+View Store
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<!-- ================= FINAL CTA ================= -->
+
+<section class="cta section text-center dark-background">
+
+<div class="container">
+
+
+<h2>
+Need a Website That Brings You Customers?
+</h2>
+
+
+<p class="mt-3">
+
+I build fast, modern websites for businesses and brands.
+Let's discuss your idea and turn it into a professional online presence.
+
+</p>
+
+
+
+<div class="mt-4">
+
+
+<a href="https://wa.me/254700670908"
+target="_blank"
+class="btn btn-success btn-lg me-2">
+
+
+<i class="bi bi-whatsapp"></i>
+
+Chat On WhatsApp
+
+</a>
+
+
+
+<a href="{% url 'contact' %}"
+class="btn btn-outline-light btn-lg">
+
+
+<i class="bi bi-envelope"></i>
+
+Contact Me
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+</section>
+<section class="section text-center">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <h3>Fast Delivery</h3>
+        <p>Projects delivered on time</p>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Clean Code</h3>
+        <p>Scalable and maintainable systems</p>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Client Focused</h3>
+        <p>Built for business growth</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- ================= PRICING ================= -->
+
+<section class="section bg-light text-center">
+
+<div class="container">
+
+
+<div class="section-title">
+
+<h2>Website Packages</h2>
+
+<p>
+Choose a package that fits your business goals.
+</p>
+
+</div>
+
+
+
+<div class="row gy-4 mt-4">
+
+
+
+<!-- BASIC -->
+
+<div class="col-lg-4">
+
+
+<div class="card h-100 p-4">
+
+
+<h4>
+Starter Website
+</h4>
+
+
+<p>
+Perfect for individuals and small businesses starting online.
+</p>
+
+
+
+<h2>
+KES 5,000+
+</h2>
+
+
+
+<ul class="text-start">
+
+<li>✔ Up to 5 pages</li>
+
+<li>✔ Mobile responsive design</li>
+
+<li>✔ Contact form</li>
+
+<li>✔ WhatsApp integration</li>
+
+<li>✔ Basic SEO setup</li>
+
+</ul>
+
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-outline-primary">
+
+Get Started
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- BUSINESS -->
+
+<div class="col-lg-4">
+
+
+<div class="card h-100 p-4 border-primary">
+
+
+<h4>
+Business Website
+</h4>
+
+
+<p>
+For businesses that want a professional online presence.
+</p>
+
+
+
+<h2>
+KES 10,000+
+</h2>
+
+
+
+<ul class="text-start">
+
+<li>✔ Custom professional design</li>
+
+<li>✔ Business pages</li>
+
+<li>✔ Customer inquiry system</li>
+
+<li>✔ WhatsApp integration</li>
+
+<li>✔ Performance optimization</li>
+
+</ul>
+
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-primary">
+
+Choose Package
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ECOMMERCE -->
+
+<div class="col-lg-4">
+
+
+<div class="card h-100 p-4">
+
+
+<h4>
+E-commerce Website
+</h4>
+
+
+<p>
+For businesses ready to sell products online.
+</p>
+
+
+
+<h2>
+KES 20,000+
+</h2>
+
+
+
+<ul class="text-start">
+
+<li>✔ Product management</li>
+
+<li>✔ Shopping cart</li>
+
+<li>✔ Order system</li>
+
+<li>✔ Payment integration</li>
+
+<li>✔ Admin dashboard</li>
+
+</ul>
+
+
+
+<a href="https://wa.me/254700670908"
+class="btn btn-outline-primary">
+
+Build My Store
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const typedElements = document.querySelectorAll('.typed');
-  typedElements.forEach(typedElement => {
-    const typedItemsRaw = typedElement.getAttribute('data-typed-items');
-    if (typedItemsRaw) {
-      const typedItems = typedItemsRaw.split(',').map(item => item.trim()).filter(Boolean);
-      if (typedItems.length) {
-        new Typed(typedElement, {
-          strings: typedItems,
-          typeSpeed: 100,
-          backSpeed: 50,
-          backDelay: 2000,
-          loop: true
-        });
-      }
+document.addEventListener("DOMContentLoaded", function () {
+
+  const typedElement = document.querySelector('.typed');
+
+  if (typedElement) {
+
+    const items = typedElement.getAttribute('data-typed-items');
+
+    if (items) {
+
+      new Typed(".typed", {
+        strings: items.split(",").map(i => i.trim()),
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 2000,
+        loop: true
+      });
+
     }
-  });
+
+  }
+
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter => {
+        counter.innerText = "0";
+
+        const updateCounter = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText;
+
+            const increment = target / 100;
+
+            if (current < target) {
+                counter.innerText = Math.ceil(current + increment);
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        updateCounter();
+    });
+
+});
+</script>
+
+
 
 {% endblock %}

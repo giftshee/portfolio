@@ -51,17 +51,39 @@ class AboutSection(models.Model):
         return self.heading
     from django.db import models
 
-# Portfolio Items
+# Portfolio Items (Client Winning System)
 class PortfolioItem(models.Model):
+
     CATEGORY_CHOICES = [
         ('app', 'App'),
         ('product', 'Product'),
-        ('branding', 'Branding'),
+        ('branding', 'Web'),
     ]
+
     title = models.CharField(max_length=200)
+
+    # Optional but powerful for trust
+    client_name = models.CharField(max_length=200, blank=True, null=True)
+
+    # Case study structure (THIS IS WHAT CLIENTS CARE ABOUT)
+    problem = models.TextField(blank=True, null=True)
+    solution = models.TextField(blank=True, null=True)
+    result = models.TextField(blank=True, null=True)
+
+    # fallback short description
     description = models.TextField(blank=True)
+
     image = models.ImageField(upload_to='portfolio/')
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='app')
+
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='app'
+    )
+
+    # optional live link (VERY IMPORTANT FOR CLIENT TRUST)
+    project_url = models.URLField(blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
